@@ -8,7 +8,7 @@ if (isset($_SESSION['player']))
 }
 else
 {
-    echo"Not logged in <br> <a href='login.php'</a>";
+    echo"Not logged in <br> <a href='login.php'>Login</a>";
     exit;
 }
 
@@ -33,7 +33,7 @@ print "<table border = '1' bordercolor = 'black' bgcolor='#ffffff'>";
 print "<tr><td>Name<font color='ffffff'>________________</font></td><td>Stat<font color='ffffff'>______</td><td>Stat Add<font color='ffffff'>______</td><td>Type<font color='ffffff'>______</td><td><font color='ffffff'>________________</td></tr>";
 while($invinfo3=mysqli_fetch_array($invinfo2))
 {
-    print "<tr><td>$invinfo3[name]</td><td>$invinfo3[stats]</td><td>$invinfo3[statadd]</td><td>$invinfo3[type]</td><td>a href='battlemode.php?randid=$invinfo3[randid]'>Use item</td></tr>";
+    print "<tr><td>$invinfo3[name]</td><td>$invinfo3[stats]</td><td>$invinfo3[statadd]</td><td>$invinfo3[type]</td><td><a href='battlemode.php?randid=$invinfo3[randid]&destroyer=$destroyer'>Use item</td></tr>";
 $counter = 1;
 }
 
@@ -44,7 +44,7 @@ print"</center>";
 if ($counter == 0)
 {
     echo "<div style=\"text-align: center;\">You have nothing in inventory<br>";
-    echo "<a href='battlemode.php?destroyer='$destroyer'>Return";
+    echo "<a href='battlemode.php?destroyer=$destroyer'>Return";
     exit;
 }
 

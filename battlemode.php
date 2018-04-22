@@ -19,7 +19,7 @@ $userinfo="SELECT * from players where player='$user'";
 $userinfo2=mysqli_query($mysqli, $userinfo) or die("could not get player stats!");
 $userinfo3=mysqli_fetch_array($userinfo2);
 
-$userhp = $userinfo3['hitpoints'];
+$userhitpoints = $userinfo3['hitpoints'];
 $userattack = $userinfo3['attack'];
 $userdefence = $userinfo3['defence'];
 
@@ -36,25 +36,26 @@ if (!$iteminfo3['name'])
 }
 else
 {
+$ID = $iteminfo3['ID'];
 $name = $iteminfo3['name'];
 $stats = $iteminfo3['stats'];
 $statadd = $iteminfo3['statadd'];
 $type = $iteminfo3['type'];
 
-if (!type == "healing")
+if ($type == "healing")
 {
-    $newhitpoints = $statadd + $playerhitpoints;
+    $newhitpoints = $statadd + $userhitpoints;
     if ($newhitpoints > $userinfo3['maxhitpoints'])
     {
         $newhitpoints = $userinfo3['maxhitpoints'];
     }
-    $updateplayer="update players set hitpoints='$newhitpoints' where name = '$user'";
+    $updateplayer="UPDATE players set hitpoints='$newhitpoints' where ID = '$ID'";
     mysqli_query($mysqli, $updateplayer) or die ("Could not update player");
 
     $updateitem="DELETE from inventory where name ='$name' AND randid='$randid' limit 1";
     mysqli_query($mysqli, $updateitem) or die ("Could not delete item");
 
-    $playerhitpoints = $newhitpoints;
+    $userhitpoints = $newhitpoints;
 
     echo "Used " . $name . " and recovered " . $statadd . " to ships health<br>";
 }
@@ -85,7 +86,7 @@ $destroyerdefence = $destroyerinfo3['defence'];
 
 /////player info
 echo "<u> " . $userinfo3['player'] . "</u><br>";
-echo "Hit points = " . $userhp . "<br>";
+echo "Hit points = " . $userhitpoints . "<br>";
 echo "attack = " . $userattack . "<br>";
 echo "Defence = " . $userdefence . "<br><br><br>";
 
