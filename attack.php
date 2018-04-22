@@ -20,11 +20,10 @@ $userinfo2=mysqli_query($mysqli, $userinfo) or die("could not get player stats!"
 $userinfo3=mysqli_fetch_array($userinfo2);
 
 
-
-if (isset($_GET['destroyer']))
+$destroyer = $userinfo3['destroyer'];
+if ($destroyer != 0)
 {
-    $destroyer=$_GET['destroyer'];
-    $destroyerinfo="SELECT * from destroyers where name = '$destroyer'";
+    $destroyerinfo="SELECT * from destroyers where ID = '$destroyer'";
     $destroyerinfo2=mysqli_query($mysqli, $destroyerinfo) or die("could not get the destroyer you were fighting!");
     $destroyerinfo3=mysqli_fetch_array($destroyerinfo2);
 
@@ -66,8 +65,8 @@ if($userattack > $destroyerdefence)
     {
         echo "The " . $destroyer . "has been killed";
 
-        $updatedestroyer="DELETE from destroyers where name ='$destroyer' limit 1";
-        mysqli_query($mysqli, $updatedestroyer) or die ("Could not update destroyer");
+       // $updatedestroyer="DELETE from destroyers where name ='$destroyer' limit 1";
+      //  mysqli_query($mysqli, $updatedestroyer) or die ("Could not update destroyer");
 
         if ($userinfo3['level'] > $destroyerinfo3['level'])
 {
@@ -87,8 +86,9 @@ else
 
 }
 $totalexper = (int) $totalexper;
+
 echo "<br><br> You Gain " . $totalexper . " experience.</br></br>";
-$updateuser="update players set exper=exper+'$totalexper' where player='$user'";
+$updateuser="update players set exper=exper+'$totalexper',destroyer=0 where player='$user'";
 mysqli_query($mysqli, $updateuser) or die ("Could not update player");
 
 

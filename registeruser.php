@@ -50,7 +50,7 @@ else
 {
 $pass=md5($pass);
 
-$SQLi = "INSERT into players(player, password, email, level, exper, attack, defence, hitpoints, maxhitpoints) VALUES ('$user', '$pass', '$email', '1', '0', '5', '5', '30', '35')";
+$SQLi = "INSERT into players(player, password, email, level, exper, attack, defence, hitpoints, maxhitpoints, scraps, destroyer) VALUES ('$user', '$pass', '$email', '1', '0', '5', '5', '30', '35', '20', '0')";
 mysqli_query($mysqli, $SQLi) or die ("Unable to register");
 
 echo "Thank you for registering with Spacetime!";

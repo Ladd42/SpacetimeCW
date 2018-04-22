@@ -25,6 +25,14 @@ $iteminfo="SELECT * from store where randid='$randid'";
 $iteminfo2=mysqli_query($mysqli, $iteminfo) or die ("Could not get item stats");
 $iteminfo3=mysqli_fetch_array($iteminfo2);
 
+if ($userinfo3['scraps'] < $iteminfo3['price'])
+{
+    echo "you do not have the required scraps to purchase this";
+    echo "<div style=\"text-align: center;\"><a href ='battlemode.php?destroyer=$destroyer'>Return</a>";
+    exit;
+}
+
+
 $name = $iteminfo3['name'];
 $stats = $iteminfo3['stats'];
 $statadd = $iteminfo3['statadd'];
@@ -33,6 +41,10 @@ $randid2 = rand(1000,999999999);
 
 $itembought="INSERT into inventory(ID, name, stats, statadd, price, randid,type) values ('$userid','$name','$stats','$statadd', '0', '$randid2','$type')";
 mysqli_query($mysqli, $itembought) or die ("Could not add item to inventory");
+
+$updateuser ="UPDATE players set scraps=scraps-'$iteminfo3[price]' where player ='$user'";
+mysqli_query($mysqli, $updateuser) or die ("Could not update the current player");
+
 
 echo $name . " has been purchased";
 echo "<div style=\"text-align: center;\"><a href ='battlemode.php?destroyer=$destroyer'>Return</a>";

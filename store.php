@@ -33,7 +33,7 @@ print "<table border = '1' bordercolor = 'black' bgcolor='white'>";
 print "<tr><td>Name</td><td>Stat</td><td>Stat Add</td><td>Type</td><td>Price</td>";
 while($invinfo3=mysqli_fetch_array($invinfo2))
 {
-    print "<tr><td>$invinfo3[name]</td><td>$invinfo3[stats]</td><td>$invinfo3[statadd]</td><td>$invinfo3[type]</td><td><a href='buyitem.php?randid=$invinfo3[randid]&destroyer=$destroyer'>Buy item</td></tr>";
+    print "<tr><td>$invinfo3[name]</td><td>$invinfo3[stats]</td><td>$invinfo3[statadd]</td><td>$invinfo3[type]</td><td>$invinfo3[price]</td><td><a href='buyitem.php?randid=$invinfo3[randid]&destroyer=$destroyer'>Buy item</td></tr>";
     $counter = 1;
 }
 

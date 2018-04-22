@@ -64,10 +64,10 @@ if ($type == "healing")
 }
 }
 
-if (isset($_GET['destroyer']))
+$destroyer = $userinfo3['destroyer'];
+if ($destroyer != 0)
 {
-    $destroyer=$_GET['destroyer'];
-    $destroyerinfo="SELECT * from destroyers where name = '$destroyer'";
+    $destroyerinfo="SELECT * from destroyers where id = '$destroyer'";
     $destroyerinfo2=mysqli_query($mysqli, $destroyerinfo) or die("could not get the destroyer you were fighting!");
     $destroyerinfo3=mysqli_fetch_array($destroyerinfo2);
 
@@ -77,6 +77,9 @@ else
     $destroyerinfo="SELECT * from destroyers order by rand() limit 1";
     $destroyerinfo2=mysqli_query($mysqli, $destroyerinfo) or die("could get a destroyer!");
     $destroyerinfo3=mysqli_fetch_array($destroyerinfo2);
+    $destroyerid = $destroyerinfo3['ID'];
+    $updateplayer="update players set destroyer='$destroyerid' where player = '$user'";
+    mysqli_query($mysqli, $updateplayer) or die ("Couldn't update the player");
 }
 
 $destroyer = $destroyerinfo3['name'];
@@ -99,7 +102,10 @@ echo "Defence = " . $destroyerdefence . "<br><br><br>";
 echo "<a href='attack.php?destroyer=$destroyer'>Attack";
 
 echo "<br><a href='store.php?destroyer=$destroyer'>Go to the store";
-echo "<br><a href='useitem.php?destroyer=$destroyer'>Use an item";
+echo "<br><a href='useitem.php?destroyer=$destroyer'>Use an item</a><br><br><br>";
+
+echo "<br><big><u>Scraps</u></big><br>";
+echo $userinfo3['scraps'];
 
 
 
