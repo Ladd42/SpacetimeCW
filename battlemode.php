@@ -102,7 +102,21 @@ echo "Defence = " . $destroyerdefence . "<br><br><br>";
 echo "<a href='attack.php?destroyer=$destroyer'>Attack";
 
 echo "<br><a href='store.php?destroyer=$destroyer'>Go to the store";
-echo "<br><a href='useitem.php?destroyer=$destroyer'>Use an item</a><br><br><br>";
+echo "<br><a href='useitem.php?destroyer=$destroyer'>Use an item";
+echo "<br><a href='profile.php'>Profile</a><br><br><br>";
+
+$i = 0;
+$messageinfo="SELECT userid from messages where userid='$user' AND readm = '1'";
+$messageinfo2=mysqli_query($mysqli,$messageinfo) or die("Could not get message stats");
+while($messageinfo3=mysqli_fetch_array($messageinfo2))
+{$i = $i + 1;}
+if($i > 0){echo "<a href='profile.php?messages=1'>Messages(" . $i . ")</a><br>";}
+else{echo "<a href='profile.php?messages=1'>Messages<br></a>";}
+
+
+
+
+
 
 echo "<br><big><u>Scraps</u></big><br>";
 echo $userinfo3['scraps'];

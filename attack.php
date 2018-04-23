@@ -57,13 +57,13 @@ echo $destroyer . "'s defence roll is " . $destroyerdefence . "<br>";
 
 if($userattack > $destroyerdefence)
 {
-    echo $userinfo3['player'] . "hits! <br>";
+    echo $userinfo3['player'] . " hits! <br>";
     $userdamage = rand(1, 6);
     $newdestroyerhp = $destroyerhp - $userdamage;
-    echo "For " . $userdamage . "points of damage . <br>";
+    echo "For " . $userdamage . " points of damage . <br>";
     if ($newdestroyerhp < 1)
     {
-        echo "The " . $destroyer . "has been killed";
+        echo "The " . $destroyer . " has been killed";
 
        // $updatedestroyer="DELETE from destroyers where name ='$destroyer' limit 1";
       //  mysqli_query($mysqli, $updatedestroyer) or die ("Could not update destroyer");
@@ -124,7 +124,7 @@ if($destroyerattack > $userdefence) {
     $newuserhp = $userhp - $destroyerdamage;
     echo "For " . $destroyerdamage . "points of damage . <br>";
     if ($newuserhp < 1) {
-        echo $userinfo3['player'] . "has been killed";
+        echo $userinfo3['player'] . " has been killed";
         echo "<a href ='gameend.php'>Continue";
         exit;
     }
@@ -133,7 +133,7 @@ if($destroyerattack > $userdefence) {
 }
 else
 {
-    echo $destroyer . "missed!";
+    echo $destroyer . " missed!";
 }
 
 echo"<br><a href='battlemode.php?destroyer=$destroyer'> Re Engage enemy.";
