@@ -4,15 +4,15 @@ session_start();
 
 if (isset($_SESSION['player']))
 {
-        $user=$_SESSION['player'];
-    }
+    $user=$_SESSION['player'];
+}
 else
-    {
+{
     echo"Not logged in <br> <a href='login.php'</a>";
-        exit;
-    }
+    exit;
+}
 
-
+echo"<h1><center>Spacetime</center></h1>";
 
 
 $userinfo="SELECT * from players where player='$user'";
@@ -26,42 +26,42 @@ $userdefence = $userinfo3['defence'];
 
 if (isset($_GET['randid']))
 {
-$randid=$_GET['randid'];
-$iteminfo="SELECT * from inventory where randid = '$randid'";
-$iteminfo2=mysqli_query($mysqli, $iteminfo) or die("could not get the item stats!");
-$iteminfo3=mysqli_fetch_array($iteminfo2);
+    $randid=$_GET['randid'];
+    $iteminfo="SELECT * from inventory where randid = '$randid'";
+    $iteminfo2=mysqli_query($mysqli, $iteminfo) or die("could not get the item stats!");
+    $iteminfo3=mysqli_fetch_array($iteminfo2);
 
-if (!$iteminfo3['name'])
-{
-}
-else
-{
-$ID = $iteminfo3['ID'];
-$name = $iteminfo3['name'];
-$stats = $iteminfo3['stats'];
-$statadd = $iteminfo3['statadd'];
-$type = $iteminfo3['type'];
-
-if ($type == "healing")
-{
-    $newhitpoints = $statadd + $userhitpoints;
-    if ($newhitpoints > $userinfo3['maxhitpoints'])
+    if (!$iteminfo3['name'])
     {
-        $newhitpoints = $userinfo3['maxhitpoints'];
     }
-    $updateplayer="UPDATE players set hitpoints='$newhitpoints' where ID = '$ID'";
-    mysqli_query($mysqli, $updateplayer) or die ("Could not update player");
+    else
+    {
+        $ID = $iteminfo3['ID'];
+        $name = $iteminfo3['name'];
+        $stats = $iteminfo3['stats'];
+        $statadd = $iteminfo3['statadd'];
+        $type = $iteminfo3['type'];
 
-    $updateitem="DELETE from inventory where name ='$name' AND randid='$randid' limit 1";
-    mysqli_query($mysqli, $updateitem) or die ("Could not delete item");
+        if ($type == "healing")
+        {
+            $newhitpoints = $statadd + $userhitpoints;
+            if ($newhitpoints > $userinfo3['maxhitpoints'])
+            {
+                $newhitpoints = $userinfo3['maxhitpoints'];
+            }
+            $updateplayer="UPDATE players set hitpoints='$newhitpoints' where ID = '$ID'";
+            mysqli_query($mysqli, $updateplayer) or die ("Could not update player");
 
-    $userhitpoints = $newhitpoints;
+            $updateitem="DELETE from inventory where name ='$name' AND randid='$randid' limit 1";
+            mysqli_query($mysqli, $updateitem) or die ("Could not delete item");
 
-    echo "Used " . $name . " and recovered " . $statadd . " to ships health<br>";
-}
+            $userhitpoints = $newhitpoints;
+
+            echo "Used " . $name . " and recovered " . $statadd . " to ships health<br>";
+        }
 
 
-}
+    }
 }
 
 $destroyer = $userinfo3['destroyer'];
@@ -90,7 +90,7 @@ $destroyerdefence = $destroyerinfo3['defence'];
 /////player info
 echo "<u> " . $userinfo3['player'] . "</u><br>";
 echo "Hit points = " . $userhitpoints . "<br>";
-echo "attack = " . $userattack . "<br>";
+echo "Attack = " . $userattack . "<br>";
 echo "Defence = " . $userdefence . "<br><br><br>";
 
 ///////destroyer info
@@ -121,6 +121,17 @@ else{echo "<a href='profile.php?messages=1'>Messages<br></a>";}
 echo "<br><big><u>Scraps</u></big><br>";
 echo $userinfo3['scraps'];
 
+echo "<br><big><u>Level</u></big><br>";
+echo $userinfo3['level'];
+
+$experneeded = ($userinfo3['level'] * 10) * $userinfo3['level'];
+if ($userinfo3['exper'] >= $experneeded)
+{
+    echo "<br><br><br><a href='levelup.php'>Level Up.</a><br>";
+}
+
+
+echo"<br><br><br><A href = 'Logout.php'>Logout";
 
 
 
