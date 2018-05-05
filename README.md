@@ -16,3 +16,5 @@ Chat with friends through PM system (Social element)
 Buying items with Scraps (Currency)
 Using items to repair ship
 Levelling up and gaining xp through killing enemy ships
+
+The Db file (spacetime.sql) has been included and will need to be uploaded to the server for the game to pull in data correctly.
